@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+</head>
+
+<body>
+    <input id="search" name="query" type="text" placeholder="Film Ara" onkeypress="">
+    <div id="posts">
+
+    </div>
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+
+            var inputSearch = document.getElementById("search");
+            var divPosts = document.getElementById("posts");
+            inputSearch.addEventListener("keyup", function () {
+                //veriyi al 
+                var keyWord = this.value;
+                //istek gönder
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
+                xhr.send(null);
+                 //gelen isteği sayfaya yerleştir
+                xhr.addEventListener("readystatechange",function (){
+                if (this.readyState == 4 && this.status==200)  {
+                var content=this.responseText;    // xhr.responseText 
+                var posts=JSON.parse(content);
+                for (let index = 0; index < posts.length; index++) {
+                const post = posts[index];
+                divPosts.innerHTML+=post.title + "<br><br>"
+                }
+
+                    
+                }   
+                    
+                });
+
+
+            });
+
+
+
+
+
+           
+
+
+
+            //inputSearch.addEventListener("keypress", veriAl );
+            //inputSearch.addEventListener("keydown", veriAl);
+            //function veriAl(){}
+
+
+        }
+        )
+
+    </script>
+
+</body>
+
+</html>
